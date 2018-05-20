@@ -38,10 +38,10 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: true }
 }));
-app.user(function(req, res, next) {
+app.all('/', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("ACcess-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
  });
 

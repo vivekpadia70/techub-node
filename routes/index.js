@@ -9,9 +9,6 @@ router.get('/', function(req, res) {
 });
 
 router.post('/signup', function(req, res){
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("ACcess-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
   var user = new User(req.body);
   user.save().then(function(){
     if(user.isNew === false){
@@ -25,9 +22,6 @@ router.get('/print', function(req, res){
 });
 
 router.post('/login', function(req, res){
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("ACcess-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
   var data = req.body;
   User.findOne({enroll: data.enroll}).then(function(result){
     if(data.password === result.password){
@@ -40,9 +34,6 @@ router.post('/login', function(req, res){
 });
 
 router.post('/postit', function(req, res){
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("ACcess-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
   var post = new Post(req.body);
   post.save().then(function(){
     if(post.isNew === false){
@@ -52,9 +43,6 @@ router.post('/postit', function(req, res){
 });
 
 router.get('/posts', function(req, res){
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("ACcess-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
   Post.find({}).then(function(result){
     res.send(result);
   });
