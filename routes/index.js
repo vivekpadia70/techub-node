@@ -48,4 +48,11 @@ router.get('/posts', function(req, res){
   });
 });
 
+router.get('/useren/:enroll', function(req, res){
+  var enrollment = req.params('enroll');
+  User.findOne({enroll: enrollment}).then(function(result){
+    res.send(result);
+  });
+});
+
 module.exports = router;
