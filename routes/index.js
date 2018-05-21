@@ -49,9 +49,11 @@ router.get('/posts', function(req, res){
 });
 
 router.get('/useren/:enroll', function(req, res){
-  var enrollment = req.params('enroll');
+  var enrollment = req.param('enroll');
+  console.log(enrollment);
   User.findOne({enroll: enrollment}).then(function(result){
     res.send(result);
+    console.log(result);
   });
 });
 
