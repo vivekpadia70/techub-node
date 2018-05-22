@@ -8,7 +8,8 @@ var userSchema = new schema({
   year: String,
   profile_pic: String,
   bio: String,
-  social_links: Array
+  social_links: Array,
+  myPosts: Array
 });
 
 var User = mongoose.model('user', userSchema);
