@@ -33,7 +33,7 @@ router.post('/login', function(req, res){
   });
 });
 
-router.post('/likePost/:enroll/:id', function(req, res){
+router.get('/likePost/:enroll/:id', function(req, res){
   var id = req.param('id');
   var enrollment = req.param('enroll');
   Post.update({_id: id}, {$push: {likes: enrollment}}).then(function(result){
@@ -41,7 +41,7 @@ router.post('/likePost/:enroll/:id', function(req, res){
   });
 });
 
-router.post('/dislike/:enroll/:id', function(req, res){
+router.get('/dislike/:enroll/:id', function(req, res){
   var id = req.param('id');
   var enrollment = req.param('enroll');
   Post.update({_id: id}, {$pull: { likes: enrollment}}).then(function(result){
