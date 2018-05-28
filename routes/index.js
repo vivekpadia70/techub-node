@@ -75,6 +75,13 @@ router.get('/useren/:enroll', function(req, res){
   });
 });
 
+router.get('/getFriends/:enroll', function(req, res){
+  var enroll = req.param('enroll');
+  User.findOne({enroll: enroll}).then(function(result){
+    res.send(result.friends);
+  });
+});
+
 router.post('/sendReq', function(req, res){
   var data = req.body;
   var sender = data.sender;
