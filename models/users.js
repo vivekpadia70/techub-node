@@ -9,7 +9,10 @@ var userSchema = new schema({
   profile_pic: String,
   bio: String,
   social_links: Array,
-  myPosts: Array
+  myPosts: Array,
+  requestedTo: Array,
+  requestsFrom: Array,
+  friends: Array
 });
 
 var User = mongoose.model('user', userSchema);

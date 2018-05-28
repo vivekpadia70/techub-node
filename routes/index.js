@@ -72,7 +72,45 @@ router.get('/useren/:enroll', function(req, res){
   console.log(enrollment);
   User.findOne({enroll: enrollment}).then(function(result){
     res.send(result);
-    console.log(result);
+  });
+});
+
+router.post('/sendReq/:sender/:receiver', function(req, res){
+  var sender = req.param('sender');
+  var receiver = req.param('receiver');
+  User.findOne({enroll: sender}, {$push: {requestedTo: receiver}}).then(function(result){
+    res.send(result);
+  });
+  User.findOne({enroll: receiver}, {$push: {requestsFrom: sender}}).then(function(result){
+    res.send(result);
+  });
+});
+
+router.post('/acceptReq/:sender/:receiver', function(req, res){
+  var sender = req.param('sender');
+  var receiver = req.param('receiver');
+  User.findOne({enroll: sender}, {$push: {friends: receiver}}).then(function(result){
+    res.send(result);
+  });
+  User.findOne({enroll: receiver}, {$push: {friends: sender}}).then(function(result){
+    res.send(result);
+  });
+  User.findOne({enroll: receiver}, {$pull: {requestedTo: sender}}).then(function(result){
+    res.send(result);
+  });
+  User.findOne({enroll: sender}, {$pull: {requestsFrom: receiver}}).then(function(result){
+    res.send(result);
+  });
+});
+
+router.post('/delReq/:sender/:receiver', function(req, res){
+  var sender = req.param('sender');
+  var receiver = req.param('receiver');
+  User.findOne({enroll: sender}, {$pull: {friends: receiver}}).then(function(result){
+    res.send(result);
+  });
+  User.findOne({enroll: receiver}, {$pull: {friends: sender}}).then(function(result){
+    res.send(result);
   });
 });
 
