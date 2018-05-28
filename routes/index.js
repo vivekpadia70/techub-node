@@ -79,10 +79,10 @@ router.post('/sendReq', function(req, res){
   var data = req.body;
   var sender = data.sender;
   var receiver = data.receiver;
-  User.findOne({enroll: sender}, {$push: {requestedTo: receiver}}).then(function(result){
+  User.update({enroll: sender}, {$push: {requestedTo: receiver}}).then(function(result){
     res.send(result);
   });
-  User.findOne({enroll: receiver}, {$push: {requestsFrom: sender}}).then(function(result){
+  User.update({enroll: receiver}, {$push: {requestsFrom: sender}}).then(function(result){
     res.send(result);
   });
 });
@@ -91,16 +91,16 @@ router.post('/acceptReq', function(req, res){
   var data = req.body;
   var sender = data.sender;
   var receiver = data.receiver;
-  User.findOne({enroll: sender}, {$push: {friends: receiver}}).then(function(result){
+  User.update({enroll: sender}, {$push: {friends: receiver}}).then(function(result){
     res.send(result);
   });
-  User.findOne({enroll: receiver}, {$push: {friends: sender}}).then(function(result){
+  User.update({enroll: receiver}, {$push: {friends: sender}}).then(function(result){
     res.send(result);
   });
-  User.findOne({enroll: receiver}, {$pull: {requestedTo: sender}}).then(function(result){
+  User.update({enroll: receiver}, {$pull: {requestedTo: sender}}).then(function(result){
     res.send(result);
   });
-  User.findOne({enroll: sender}, {$pull: {requestsFrom: receiver}}).then(function(result){
+  User.update({enroll: sender}, {$pull: {requestsFrom: receiver}}).then(function(result){
     res.send(result);
   });
 });
@@ -109,10 +109,10 @@ router.post('/delReq', function(req, res){
   var data = req.body;
   var sender = data.sender;
   var receiver = data.receiver;
-  User.findOne({enroll: sender}, {$pull: {friends: receiver}}).then(function(result){
+  User.update({enroll: sender}, {$pull: {friends: receiver}}).then(function(result){
     res.send(result);
   });
-  User.findOne({enroll: receiver}, {$pull: {friends: sender}}).then(function(result){
+  User.update({enroll: receiver}, {$pull: {friends: sender}}).then(function(result){
     res.send(result);
   });
 });
