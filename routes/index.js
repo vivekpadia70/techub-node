@@ -119,6 +119,18 @@ router.post('/acceptReq', function(req, res){
   });
 });
 
+router.post('/cancelReq', function(req, res){
+  var data = req.body;
+  var sender = data.sender;
+  var receiver = data.receiver;
+  User.update({enroll: sender}, {$pull: {requestsFrom: receiver}}).then(function(result){
+    res.send(result);
+  });
+  User.update({enroll: receiver}, {$pull: {requestedTo: sender}}).then(function(result){
+    res.send(result);
+  });
+});
+
 router.post('/delReq', function(req, res){
   var data = req.body;
   var sender = data.sender;
